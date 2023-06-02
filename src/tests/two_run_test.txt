@@ -1,0 +1,5 @@
+int a = false;
+print(b);
+
+int a = "as";
+$ No wrong-type error because of two run strategy $

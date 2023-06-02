@@ -1,0 +1,9 @@
+if null {
+    print("True");
+} else if true {
+    print("ElseIfTrue");
+} else if false {
+    print("ElseIfFalse");
+} else {
+    print("Else");
+}

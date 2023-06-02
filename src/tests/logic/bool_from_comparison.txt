@@ -1,0 +1,13 @@
+int a = 5;
+int x = 3;
+bool b = a > x;
+print(b);
+
+float f = 11.7;
+a = 11;
+print(((a) == f));
+print(a == 11.0);
+b = a == f nor a > x;
+print(b);
+
+print("Should be true, false, true, false");

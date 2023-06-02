@@ -1,0 +1,15 @@
+int f = 7;
+int u;
+Funkcja (f, "s", true) -> (u);
+Funkcja (f, "s", true) -> (int p);
+
+
+Funkcja (int a, string b, bool bo) -> (int o){
+    a++;
+    o = a + 5;
+    print(o);
+}
+
+print(u+2);
+print(p+10);
+print(f);

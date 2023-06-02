@@ -1,0 +1,7 @@
+int a = 5;
+if true{
+    print(a);
+    if true{
+        $print(a);$
+    }
+}

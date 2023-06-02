@@ -1,0 +1,5 @@
+int a = 10;
+int b = -3;
+int c = -12;
+print(a+b+c);
+print("Should be -5");

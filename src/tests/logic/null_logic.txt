@@ -1,0 +1,10 @@
+bool a = null or true;
+bool b = null or false;
+bool c = null and true;
+bool d = null and false;
+
+print(a);
+print(b);
+print(c);
+print(d);
+print("Should be true, null, null, false");

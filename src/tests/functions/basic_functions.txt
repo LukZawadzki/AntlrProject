@@ -1,0 +1,28 @@
+Function();
+Function2(3);
+Function3(15) -> (int x);
+print(x);
+int f4;
+Function4(7) -> (f4, int ff);
+print(f4);
+print(ff);
+
+
+Function () -> (){
+    print("Hello!");
+}
+
+Function2 (int a) -> (){
+    print(a);
+}
+
+Function3 (int a) -> (int result) {
+    result = a + 3;
+}
+
+Function4 (int a) -> (int r1, int r2){
+    r1 = a - 10;
+    r2 = a * 5;
+}
+
+print("Should be 'Hello!', 3, 18, -3, 35");

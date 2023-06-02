@@ -1,0 +1,2 @@
+float f = 5.0;
+print(f+3.2);

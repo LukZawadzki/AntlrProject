@@ -1,0 +1,12 @@
+Factorial (int n) -> (int result){
+    if n == 0 or n == 1 {
+        result = 1;
+    } else {
+        Factorial (n - 1) -> (int x);
+        result = x*n;
+    }
+    print(result);
+}
+
+Factorial (3) -> (int fact);
+print(fact);
