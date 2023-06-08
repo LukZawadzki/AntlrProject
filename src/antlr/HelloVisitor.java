@@ -51,13 +51,6 @@ public interface HelloVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignDeclare(HelloParser.AssignDeclareContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code CastDeclare}
-	 * labeled alternative in {@link HelloParser#varDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCastDeclare(HelloParser.CastDeclareContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code MultipleDeclare}
 	 * labeled alternative in {@link HelloParser#varDeclaration}.
 	 * @param ctx the parse tree
@@ -187,6 +180,13 @@ public interface HelloVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncCallTable(HelloParser.FuncCallTableContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Casting}
+	 * labeled alternative in {@link HelloParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCasting(HelloParser.CastingContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Multiplicative}
 	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
@@ -284,13 +284,6 @@ public interface HelloVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code CastAssign}
-	 * labeled alternative in {@link HelloParser#assignment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCastAssign(HelloParser.CastAssignContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HelloParser#multipleAssignment}.
 	 * @param ctx the parse tree

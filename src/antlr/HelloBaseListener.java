@@ -91,18 +91,6 @@ public class HelloBaseListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCastDeclare(HelloParser.CastDeclareContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCastDeclare(HelloParser.CastDeclareContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterMultipleDeclare(HelloParser.MultipleDeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -343,6 +331,18 @@ public class HelloBaseListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCasting(HelloParser.CastingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCasting(HelloParser.CastingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMultiplicative(HelloParser.MultiplicativeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -506,18 +506,6 @@ public class HelloBaseListener implements HelloListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCastAssign(HelloParser.CastAssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCastAssign(HelloParser.CastAssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

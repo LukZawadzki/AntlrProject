@@ -1,0 +1,12 @@
+int i = -24;
+float f = 8.77425;
+string s = "alarm";
+string si = "9147";
+bool b = false;
+
+$print((@int)s);$ $ This produces an error, cant cast to int $
+
+print((@int)si);
+print((@float)b);
+print((@string)f);
+print((@bool)i);

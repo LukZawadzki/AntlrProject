@@ -92,7 +92,6 @@ statement
 varDeclaration
     : TYPE VARNAME                  # NoValueDeclare //
     | TYPE VARNAME '=' expr         # AssignDeclare //
-    | TYPE VARNAME '=' cast expr    # CastDeclare
     | TYPE multipleAssignment       # MultipleDeclare
     ;
 
@@ -107,7 +106,6 @@ varIncrement //
     : VARNAME ('++' | '--'); //
 
 funcDeclaration //
-//    : MULTIPLE? TYPE FUNCNAME arglistDeclare ('->'arglistDeclare) block;
     : FUNCNAME arglistDeclare '->' arglistDeclare block;
 /* Example:
 int a,b,c;
@@ -154,7 +152,6 @@ arglistOutput
         | ((TYPE? VARNAME',')+ TYPE? VARNAME)
     ) RBRACKET; //
 //TODO: Maybe add type() function like in Python?
-//FIXME: Shouldn't expr have rule 'cast expr' ???
 expr //Things with (in theory) value behind them
     : VARNAME                       # Variable //
     | funcCall                      # FunctionCall
@@ -171,6 +168,7 @@ expr //Things with (in theory) value behind them
     | VARNAME'['INT']'              # Table
     | funcCall '['INT']'            # FuncCallTable
     | val                           # Value //Not sure if done
+    | cast expr                     # Casting //
     ;
 
 val
@@ -184,11 +182,10 @@ assignment
     : VARNAME '=' expr              # Assign //
     | VARNAME ('^='| '*=' | '/='
       | '+=' | '-=' | '%=' ) expr   # ArithmeticAssign //
-    | VARNAME '=' cast expr         # CastAssign
     ;
 
 multipleAssignment
-    : (VARNAME',')+ VARNAME '=' (cast?(expr)',')+ cast?(expr); // Nie wiem, czy zgodność liczby zmiennych po lewej i wartości po prawej powinno być załatwione na poziomie gramatyki
+    : (VARNAME',')+ VARNAME '=' (expr',')+ expr; // Nie wiem, czy zgodność liczby zmiennych po lewej i wartości po prawej powinno być załatwione na poziomie gramatyki
 
 block // Not sure if done, but so far everything works well
     : '{' line* '}';

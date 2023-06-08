@@ -74,18 +74,6 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitAssignDeclare(HelloParser.AssignDeclareContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code CastDeclare}
-	 * labeled alternative in {@link HelloParser#varDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterCastDeclare(HelloParser.CastDeclareContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CastDeclare}
-	 * labeled alternative in {@link HelloParser#varDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitCastDeclare(HelloParser.CastDeclareContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code MultipleDeclare}
 	 * labeled alternative in {@link HelloParser#varDeclaration}.
 	 * @param ctx the parse tree
@@ -304,6 +292,18 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitFuncCallTable(HelloParser.FuncCallTableContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Casting}
+	 * labeled alternative in {@link HelloParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterCasting(HelloParser.CastingContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Casting}
+	 * labeled alternative in {@link HelloParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitCasting(HelloParser.CastingContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Multiplicative}
 	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
@@ -471,18 +471,6 @@ public interface HelloListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code CastAssign}
-	 * labeled alternative in {@link HelloParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void enterCastAssign(HelloParser.CastAssignContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CastAssign}
-	 * labeled alternative in {@link HelloParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void exitCastAssign(HelloParser.CastAssignContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HelloParser#multipleAssignment}.
 	 * @param ctx the parse tree

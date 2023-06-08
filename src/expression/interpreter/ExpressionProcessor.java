@@ -614,6 +614,66 @@ public final class ExpressionProcessor {
                                     <= Float.parseFloat(right.value)));
                 }
             } else semanticErrors.add("Error: comparing non-comparable types! ("+co.token.getLine()+")");
+        } else if (l instanceof Casting c){
+            Value val = eval(c.expr);
+            if(c.type.equals("multiple") || val.type.equals("multiple"))
+                semanticErrors.add("Error: can't cast multiples! ("+c.token.getLine()+")");
+
+            String casted = "";
+
+            if(c.type.equals(val.type)) return val;
+
+            switch (c.type){ //TO what type are we casting
+                case "int" -> {
+                    switch (val.type){ //FROM what type
+                        case "float" -> casted = String.valueOf((int) Float.parseFloat(val.value));
+                        case "bool" -> casted = switch (val.value) {
+                            case "true" -> "1";
+                            case "false" -> "0";
+                            case "null" -> "-1";
+                            default -> casted;
+                        };
+                        case "string" -> {
+                            try {
+                                casted = String.valueOf(Integer.parseInt(val.value.substring(1, val.value.length()-1)));
+                            } catch (NumberFormatException n){
+                                semanticErrors.add("Error: given string can't be casted to int ("+c.token.getLine()+")");
+                            }
+                        }
+                    }
+                }
+                case "float" -> {
+                    switch (val.type){
+                        case "int" -> casted = String.valueOf((double) Integer.parseInt(val.value));
+                        case "bool" -> casted = switch (val.value) {
+                            case "true" -> "1";
+                            case "false" -> "0";
+                            case "null" -> "-1";
+                            default -> casted;
+                        };
+                        case "string" -> {
+                            try {
+                                casted = String.valueOf(Float.parseFloat(val.value.substring(1, val.value.length()-1)));
+                            } catch (NumberFormatException n){
+                                semanticErrors.add("Error: given string can't be casted to float ("+c.token.getLine()+")");
+                            }
+                        }
+                    }
+                }
+                case "bool" -> {
+                    if(val.type.equals("float") || val.type.equals("int")){
+                        float f = Float.parseFloat(val.value);
+                        if(f == 0) casted = "false";
+                        else if(f < 0) casted = "null";
+                        else casted = "true";
+                    } else if(val.type.equals("string")) {
+                        if(val.value.isEmpty() || val.value.isBlank()) casted = "false";
+                        else casted = "true";
+                    }
+                }
+                case "string" -> casted = "\"" + val.value + "\"";
+            }
+            result = new Value(casted);
         }
         return result;
     }

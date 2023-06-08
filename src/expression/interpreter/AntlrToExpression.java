@@ -90,6 +90,14 @@ public final class AntlrToExpression extends HelloBaseVisitor<Line> {
     }
 
     @Override
+    public Line visitCasting(HelloParser.CastingContext ctx) {
+        Token token = ctx.getStart();
+        String type = ctx.cast().TYPE().getText();
+        Expr expr = (Expr) visit(ctx.expr());
+        return new Casting(token, type, expr);
+    }
+
+    @Override
     public Line visitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx) {
         Token idToken = ctx.VARNAME().getSymbol();
         String id = ctx.VARNAME().getText();

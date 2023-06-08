@@ -1,0 +1,3 @@
+int a = (@int) (@bool) (@string) (@float) 8182;
+
+print(a);
