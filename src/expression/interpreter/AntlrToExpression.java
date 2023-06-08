@@ -90,6 +90,23 @@ public final class AntlrToExpression extends HelloBaseVisitor<Line> {
     }
 
     @Override
+    public Line visitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx) {
+        Token idToken = ctx.VARNAME().getSymbol();
+        String id = ctx.VARNAME().getText();
+        VarName varName = new VarName(id, idToken);
+        Expr expr = null;
+        switch (ctx.getChild(1).getText()){
+            case "^=" -> expr = new Power(varName, (Expr)visit(ctx.expr()), idToken);
+            case "*=" -> expr = new Multiplication(varName,"*", (Expr)visit(ctx.expr()), idToken);
+            case "/=" -> expr = new Multiplication(varName,"/", (Expr)visit(ctx.expr()), idToken);
+            case "+=" -> expr = new Addition(varName,"+", (Expr)visit(ctx.expr()), idToken);
+            case "-=" -> expr = new Addition(varName,"-", (Expr)visit(ctx.expr()), idToken);
+            case "%=" -> expr = new Modulo(varName, (Expr)visit(ctx.expr()), idToken);
+        }
+        return new Assignment(id, expr, idToken);
+    }
+
+    @Override
     public Addition visitAdditive(HelloParser.AdditiveContext ctx) {
         Token token = ctx.getStart();
         return new Addition((Expr) visit((ctx.getChild(0))), ctx.getChild(1).getText(), (Expr) visit(ctx.getChild(2)), token);

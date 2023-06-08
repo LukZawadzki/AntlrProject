@@ -1,4 +1,4 @@
-// Generated from Hello.g4 by ANTLR 4.12.0
+// Generated from Hello.g4 by ANTLR 4.13.0
 
     package antlr;
 
@@ -277,6 +277,13 @@ public interface HelloVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAssign(HelloParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArithmeticAssign}
+	 * labeled alternative in {@link HelloParser#assignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code CastAssign}
 	 * labeled alternative in {@link HelloParser#assignment}.

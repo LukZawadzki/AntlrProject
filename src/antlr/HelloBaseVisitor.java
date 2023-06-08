@@ -1,4 +1,4 @@
-// Generated from Hello.g4 by ANTLR 4.12.0
+// Generated from Hello.g4 by ANTLR 4.13.0
 
     package antlr;
 
@@ -294,6 +294,13 @@ public class HelloBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitAssign(HelloParser.AssignContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

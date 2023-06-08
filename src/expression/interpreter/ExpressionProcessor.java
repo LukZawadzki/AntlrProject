@@ -38,94 +38,6 @@ public final class ExpressionProcessor {
         this.parent = parent;
     }
 
-//    public List<String> getEvalResults(){ //TODO: copy to oder EvalResults
-//        List<String> evaluations = new ArrayList<>();
-//
-//        boolean err = false;
-//        for(Line l: list){
-//            if(l instanceof VarDeclaration v){
-//                if(values.containsKey(v.variable.id)) {
-//                    semanticErrors.add("Error: variable `" + v.variable.id + "` " +
-//                            "already declared (" + v.variable.token.getLine() + ")");
-//                    err = true;
-//                }
-//                values.put(v.variable.id, null);
-//                types.put(v.variable.id, v.variable.type);
-//            }
-//        }
-//        if (!err)
-//        for(Line l: list){
-//            if(l instanceof Variable v){
-//                System.out.println("OH-OH! variable value: " + v.value);
-//                try {
-//                    values.put(v.id, eval(v.value));
-//                } catch (NullPointerException e) {
-//                    e.printStackTrace();
-//                }
-//            } else if (l instanceof VarDeclaration v){
-//                Value value = eval(v.variable.value);
-////                if(values.containsKey(v.variable.id))
-////                    semanticErrors.add("Error: variable `"+v.variable.id+"` already declared ("+v.variable.token.getLine()+")");
-//                values.put(v.variable.id, value);
-//                types.put(v.variable.id, v.variable.type);
-//                if(v.variable.value instanceof VarName vn && types.containsKey(vn.id) && !types.get(vn.id).equals(types.get(v.variable.id)))
-//                    semanticErrors.add("Error: mismatched types! (" + v.variable.token.getLine() + ")");
-//                    // Checks if declared types match ^
-//                else if(!types.get(v.variable.id).equals(value.type) && !value.type.equals("notInit"))
-//                    semanticErrors.add("Error: mismatched types! (" + v.variable.token.getLine() + ")");
-//            } else if (l instanceof Assignment a){
-//                Value value = eval(a.expr);
-//                if(!values.containsKey(a.id)){
-//                    if(parent != null && parent.values.containsKey(a.id)) {
-//                        parent.values.put(a.id, value);
-//                        if(!parent.types.get(a.id).equals(value.type))
-//                            semanticErrors.add("Error: mismatched types! ("+a.token.getLine()+")");
-//                    }
-//                    else semanticErrors.add("Error: variable `"+a.id+"` not declared ("+a.token.getLine()+")");
-//                } else {
-//                    values.put(a.id, eval(a.expr));
-//                    if (!types.get(a.id).equals(value.type))
-//                        semanticErrors.add("Error: mismatched types! ("+a.token.getLine()+")");
-//                    else if (values.get(a.id) == null)
-//                        semanticErrors.add("Error: variable `"+a.id+"` not initialized ("+a.token.getText()+")");
-//                }
-//            } else if (l instanceof Print p){
-//                if(p.id != null) {
-//                    Value result = eval(new VarName(p.id, p.token));
-//                    if(result.type.equals("notInit"))
-//                        semanticErrors.add("Error: variable `"+p.id+"` not initialized ("+p.token.getLine()+")");
-//                    evaluations.add(result.toString());
-//                } else {
-//                    evaluations.add(eval(p.expr).toString());
-//                }
-//            } else if (l instanceof IfBlock i){
-//                Value condition = eval(i.condition);
-//                if(condition.type.equals("notInit"))
-//                    semanticErrors.add("Error: not initialized value ("+i.token.getLine()+")");
-//                else if(!condition.type.equals("bool"))
-//                    semanticErrors.add("Error: can't resolve truth-value for given condition ("+i.token.getLine()+")");
-//                else if (condition.value.equals("true")){
-//                    ExpressionProcessor ep = new ExpressionProcessor(i.elseBlock.ifBlock.lines, this);
-//                    evaluations.addAll(ep.getEvalResults());
-//                    semanticErrors.addAll(ep.semanticErrors);
-//                } else if (condition.value.equals("false") && i.elseBlock.elseBlock != null){
-//                    ExpressionProcessor ep = new ExpressionProcessor(i.elseBlock.elseBlock.lines, this);
-//                    evaluations.addAll(ep.getEvalResults());
-//                    semanticErrors.addAll(ep.semanticErrors);
-//                } else if (condition.value.equals("false") && i.elseBlock.child != null){
-//                    List<Line> childList = new ArrayList<>();
-//                    childList.add(i.elseBlock.child);
-//                    evaluations.addAll(getEvalResults(childList));
-//                }
-//            } else if (l instanceof Block b){
-//                ExpressionProcessor ep = new ExpressionProcessor(b.lines, this);
-//                evaluations.addAll(ep.getEvalResults());
-//                semanticErrors.addAll(ep.semanticErrors);
-//            }
-//        }
-//        return evaluations;
-//    }
-
     /**
      * Evaluates <i>list</i> of Lines for my language
      * @param list if list==null uses this.list
@@ -254,9 +166,10 @@ public final class ExpressionProcessor {
                 } else if (l instanceof Print p){
                     if(p.id != null) {
                         Value result = eval(new VarName(p.id, p.token));
-                        if(result.type.equals("notInit"))
+                        if(result == null) semanticErrors.add("Error: variable "+p.id+" not declared ("+p.token.getLine()+")");
+                        else if(result.type.equals("notInit"))
                             semanticErrors.add("Error: variable `"+p.id+"` not initialized ("+p.token.getLine()+")");
-                        evaluations.add(result.toString());
+                        else evaluations.add(result.toString());
                     } else {
                         evaluations.add(eval(p.expr).toString());
                     }
@@ -417,7 +330,7 @@ public final class ExpressionProcessor {
                             float rightFloat = Float.parseFloat(right.value);
                             result = new Value(Float.toString(leftFloat + rightFloat));
                         }
-                        case "string" -> result = new Value(left.value + right.value);
+                        case "string" -> result = new Value(left.value.substring(0, left.value.length()-1) + right.value.substring(1));
                         case "bool" -> semanticErrors.add("Error: So far - can't add booleans! ("+a.token.getLine()+")");
                     }
                 } else if(a.operator.equals("-")){

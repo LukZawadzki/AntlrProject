@@ -3,3 +3,5 @@ while a >= -1700{
 print(a);
 a = a - 1;
 }
+
+$ Note: problem only seen when while loops are implemented recursively. Since I ditched that, problem is solved $

@@ -1,4 +1,4 @@
-// Generated from Hello.g4 by ANTLR 4.12.0
+// Generated from Hello.g4 by ANTLR 4.13.0
 
     package antlr;
 
@@ -459,6 +459,18 @@ public interface HelloListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssign(HelloParser.AssignContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArithmeticAssign}
+	 * labeled alternative in {@link HelloParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterArithmeticAssign(HelloParser.ArithmeticAssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArithmeticAssign}
+	 * labeled alternative in {@link HelloParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitArithmeticAssign(HelloParser.ArithmeticAssignContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code CastAssign}
 	 * labeled alternative in {@link HelloParser#assignment}.

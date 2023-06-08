@@ -71,11 +71,11 @@ start
 
 line
     : statement
-    | block
-    | ifBlock
+    | block //
+    | ifBlock //
     | forBlock
-    | whileBlock
-    | commentBlock;
+    | whileBlock //
+    | commentBlock; //
 
 commentBlock
     : '$' ~('$')* '$';
@@ -85,9 +85,9 @@ statement
     | multipleDeclaration
     | varIncrement //
     | assignment //
-    | funcCall
+    | funcCall //
     | print)? ';' //
-    | funcDeclaration;
+    | funcDeclaration; //
 
 varDeclaration
     : TYPE VARNAME                  # NoValueDeclare //
@@ -106,7 +106,7 @@ multipleDeclaration //Może powinno być ...TYPE'['INT']', żeby był określony
 varIncrement //
     : VARNAME ('++' | '--'); //
 
-funcDeclaration
+funcDeclaration //
 //    : MULTIPLE? TYPE FUNCNAME arglistDeclare ('->'arglistDeclare) block;
     : FUNCNAME arglistDeclare '->' arglistDeclare block;
 /* Example:
@@ -124,7 +124,7 @@ c = add(a,b);
 print //
     : 'print'LBRACKET (expr) RBRACKET; //
 
-funcCall
+funcCall //
     : FUNCNAME arglistInput (('->')arglistOutput)?; //TODO: Not so sure
 
 whileBlock //
@@ -143,16 +143,16 @@ elseIfBlock //
     ;
 
 arglistDeclare
-    : LBRACKET (varDeclaration? | ((varDeclaration',')+ varDeclaration)) RBRACKET;
+    : LBRACKET (varDeclaration? | ((varDeclaration',')+ varDeclaration)) RBRACKET; //
 
 arglistInput
-    : LBRACKET ( expr? | ((expr',')+ expr) ) RBRACKET;
+    : LBRACKET ( expr? | ((expr',')+ expr) ) RBRACKET; //
 
 arglistOutput
     : LBRACKET (
           TYPE? VARNAME
         | ((TYPE? VARNAME',')+ TYPE? VARNAME)
-    ) RBRACKET;
+    ) RBRACKET; //
 //TODO: Maybe add type() function like in Python?
 //FIXME: Shouldn't expr have rule 'cast expr' ???
 expr //Things with (in theory) value behind them
@@ -161,8 +161,8 @@ expr //Things with (in theory) value behind them
     | LBRACKET expr RBRACKET        # Brackets //
     | expr '^' expr                 # Power //
     | expr ('*' | '/') expr         # Multiplicative //
-    | expr ('+'|'-') expr           # Additive //
-    | expr '%' expr                 # Modulo
+    | expr ('+' | '-') expr         # Additive //
+    | expr '%' expr                 # Modulo //
     | expr ('==' | '!=' | '>'
           | '<' | '>=' | '<=') expr # Compare //
     | expr ('and' | 'or' | 'xor'
@@ -182,6 +182,8 @@ val
 
 assignment
     : VARNAME '=' expr              # Assign //
+    | VARNAME ('^='| '*=' | '/='
+      | '+=' | '-=' | '%=' ) expr   # ArithmeticAssign //
     | VARNAME '=' cast expr         # CastAssign
     ;
 
